@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamagable
 {
     private Vector3 direction = Vector3.zero;
 
@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     private Camera cam;
     private Rigidbody rb;
     private CheckGround checkGround;
+
+    public int MaxHealth { get; set; }
+    public int Health { get; set; }
 
     private void Awake()
     {
@@ -32,6 +35,9 @@ public class PlayerController : MonoBehaviour
         InputManager.Instance.OnD += MoveRight;
         InputManager.Instance.OnMouseMovement += MouseMovement;
         InputManager.Instance.OnSpaceDown += Jump;
+
+        MaxHealth = GameSettings.Instance.PlayerMaxHealth;
+        Health = MaxHealth;
     }
 
     private void FixedUpdate()
@@ -81,5 +87,19 @@ public class PlayerController : MonoBehaviour
 
         cam.transform.localEulerAngles = new Vector3(newCameraX, 0, 0);
         transform.eulerAngles = new Vector3(0, newPlayerY, 0);
+    }
+
+    public void TakeDamage(int _amount)
+    {
+        Health -= _amount;
+        if (Health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Debug.Log("Player Died");
     }
 }

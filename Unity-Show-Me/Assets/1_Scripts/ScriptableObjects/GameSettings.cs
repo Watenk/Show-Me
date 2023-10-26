@@ -32,4 +32,9 @@ public class GameSettings : ScriptableObject
     [Header("Player Settings")]
     public float PlayerSpeed;
     public float PlayerJumpStrenght;
+    public int PlayerMaxHealth;
+
+    [Header("Bullet Settings")]
+    public int BulletHealth;
+    public float NormalBulletSpeed;
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -23,6 +22,7 @@ public class InputManager : MonoBehaviour
 
     //Mouse
     public event Action<Vector2> OnMouseMovement;
+    public event Action OnLeftMouseDown;
 
     public static InputManager Instance
     {
@@ -58,5 +58,6 @@ public class InputManager : MonoBehaviour
         ////Mouse
         Vector2 mouseDir = new Vector2(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
         if (OnMouseMovement != null) { OnMouseMovement(mouseDir); }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && OnLeftMouseDown != null) { OnLeftMouseDown(); }
     }
 }
