@@ -26,11 +26,9 @@ public class GameSettings : ScriptableObject
     public bool CursorVisible;
     public bool CursorLocked;
 
-    [Header("Camera Settings")]
-    public float CameraRotationSpeed;
-
     [Header("Player Settings")]
     public float PlayerSpeed;
+    public float PlayerHeadRotationSpeed;
     public float PlayerJumpStrenght;
     public int PlayerMaxHealth;
 

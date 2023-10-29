@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour, IDamagable
 {
+    public GameObject Head;
+    public GameObject Body;
+
     private Vector3 direction = Vector3.zero;
 
     //References
@@ -54,22 +57,22 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     private void MoveForwards()
     {
-        direction += transform.forward;
+        direction += Body.transform.forward;
     }
 
     private void MoveLeft()
     {
-        direction += -transform.right;
+        direction += -Body.transform.right;
     }
 
     private void MoveBackwards()
     {
-        direction += -transform.forward;
+        direction += -Body.transform.forward;
     }
 
     private void MoveRight()
     {
-        direction += transform.right;
+        direction += Body.transform.right;
     }
 
     private void Jump()
@@ -82,11 +85,11 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     private void MouseMovement(Vector2 mouseDir)
     {
-        float newCameraX = cam.transform.eulerAngles.x - mouseDir.x * GameSettings.Instance.CameraRotationSpeed;
-        float newPlayerY = transform.eulerAngles.y + mouseDir.y * GameSettings.Instance.CameraRotationSpeed;
+        float newCameraX = Head.transform.eulerAngles.x - mouseDir.x * GameSettings.Instance.PlayerHeadRotationSpeed;
+        float newPlayerY = Body.transform.eulerAngles.y + mouseDir.y * GameSettings.Instance.PlayerHeadRotationSpeed;
 
-        cam.transform.localEulerAngles = new Vector3(newCameraX, 0, 0);
-        transform.eulerAngles = new Vector3(0, newPlayerY, 0);
+        Head.transform.localEulerAngles = new Vector3(newCameraX, 0, 0);
+        Body.transform.localEulerAngles = new Vector3(0, newPlayerY, 0);
     }
 
     public void TakeDamage(int _amount)

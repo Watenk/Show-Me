@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29e2925b7e22c347818c1632245cded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 3027663539197159982, guid: 6924c83650746bc41a59da9801196887, type: 3}
+  bullet: {fileID: 3841618915797915781, guid: 6924c83650746bc41a59da9801196887, type: 3}
   bulletSpawn: {fileID: 1006752771128782246}
 --- !u!33 &2744617987047812063
 MeshFilter:

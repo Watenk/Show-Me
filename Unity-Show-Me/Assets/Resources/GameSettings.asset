@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CursorVisible: 0
   CursorLocked: 1
-  CameraRotationSpeed: 2
   PlayerSpeed: 50
+  PlayerHeadRotationSpeed: 1
   PlayerJumpStrenght: 10
   PlayerMaxHealth: 100
   BulletHealth: 1
-  NormalBulletSpeed: 15
+  NormalBulletSpeed: 50
