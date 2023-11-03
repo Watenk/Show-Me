@@ -32,7 +32,7 @@ public abstract class Bullet : MonoBehaviour, IDamagable, IMovable
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         Destroy(this.gameObject);
     }

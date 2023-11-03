@@ -18,5 +18,12 @@ MonoBehaviour:
   PlayerHeadRotationSpeed: 1
   PlayerJumpStrenght: 10
   PlayerMaxHealth: 100
+  PlayerKnockback: 5
   BulletHealth: 1
   NormalBulletSpeed: 50
+  NormalBulletDamage: 1
+  RaftMoveForceOnGunShot: 30
+  RaftMoveSpeed: 30
+  EnemytargetRange: 100
+  EnemyShootDelay: 0.3
+  EnemyHealth: 5

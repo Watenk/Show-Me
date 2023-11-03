@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour, IDamagable
+public class PlayerController : MonoBehaviour, IDamagable, IMovable
 {
     public GameObject Head;
     public GameObject Body;
+    public WeaponManager WeaponManager;
+    public int MaxHealth { get; set; }
+    public int Health { get; set; }
 
     private Vector3 direction = Vector3.zero;
 
     //References
     private Camera cam;
-    private Rigidbody rb;
     private CheckGround checkGround;
 
-    public int MaxHealth { get; set; }
-    public int Health { get; set; }
+    public Rigidbody rb {  get; private set; }
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         InputManager.Instance.OnD += MoveRight;
         InputManager.Instance.OnMouseMovement += MouseMovement;
         InputManager.Instance.OnSpaceDown += Jump;
+        WeaponManager.OnShoot += Shoot;
 
         MaxHealth = GameSettings.Instance.PlayerMaxHealth;
         Health = MaxHealth;
@@ -53,6 +55,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         direction *= GameSettings.Instance.PlayerSpeed;
         rb.AddForce(direction);
         direction = Vector3.zero;
+    }
+
+    private void Shoot()
+    {
+        Move(-Head.transform.forward, GameSettings.Instance.PlayerKnockback, ForceMode.Impulse);
     }
 
     private void MoveForwards()
@@ -104,5 +111,10 @@ public class PlayerController : MonoBehaviour, IDamagable
     public void Die()
     {
         Debug.Log("Player Died");
+    }
+
+    public void Move(Vector3 direction, float forceMultiplier, ForceMode forceMode)
+    {
+        rb.AddForce(direction * forceMultiplier, forceMode);
     }
 }

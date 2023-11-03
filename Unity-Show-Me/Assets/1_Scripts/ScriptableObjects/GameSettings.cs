@@ -31,8 +31,19 @@ public class GameSettings : ScriptableObject
     public float PlayerHeadRotationSpeed;
     public float PlayerJumpStrenght;
     public int PlayerMaxHealth;
+    public float PlayerKnockback;
 
     [Header("Bullet Settings")]
     public int BulletHealth;
     public float NormalBulletSpeed;
+    public int NormalBulletDamage;
+
+    [Header("Raft Settings")]
+    public float RaftMoveForceOnGunShot;
+    public float RaftMoveSpeed;
+
+    [Header("Enemy Settings")]
+    public float EnemytargetRange;
+    public float EnemyShootDelay;
+    public int EnemyHealth;
 }
