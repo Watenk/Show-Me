@@ -7,11 +7,18 @@ public class CheckGround : MonoBehaviour
 {
     public bool IsOnGround { get; private set; }
 
-    private void OnTriggerEnter(Collider other)
+    public bool IsOnRaft { get; private set; }
+
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             IsOnGround = true;
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Raft"))
+        {
+            IsOnRaft = true;
         }
     }
 
@@ -20,6 +27,11 @@ public class CheckGround : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             IsOnGround = false;
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Raft"))
+        {
+            IsOnRaft = false;
         }
     }
 }

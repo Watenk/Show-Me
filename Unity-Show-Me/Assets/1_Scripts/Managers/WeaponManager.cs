@@ -1,11 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
     public Gun currentGun;
+
+    public event Action OnShoot;
 
     void Start()
     {
@@ -15,5 +17,6 @@ public class WeaponManager : MonoBehaviour
     private void Shoot()
     {
         currentGun.Shoot();
+        OnShoot();
     }
 }
