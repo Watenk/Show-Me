@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IMovable
         //MovePlayer
         direction.Normalize();
         direction *= GameSettings.Instance.PlayerSpeed;
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         rb.AddForce(direction);
         direction = Vector3.zero;
     }

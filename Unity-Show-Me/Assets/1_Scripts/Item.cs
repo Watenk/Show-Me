@@ -9,7 +9,7 @@ public class Item : MonoBehaviour, IItemable
     public string Name { get { return namee; } }
     [SerializeField]
     private string namee;
-    public int Amount { get { return amount; } }
+    public int Amount { get { return amount; } set { amount = value; } }
     [SerializeField]
     private int amount;
     public Sprite ItemSprite { get { return sprite; } }
@@ -35,6 +35,7 @@ public class Item : MonoBehaviour, IItemable
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             InventoryManager.Instance.PickUpItem(this.gameObject);
+            PickUp();
         }
     }
 

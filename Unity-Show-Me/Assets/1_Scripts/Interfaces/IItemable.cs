@@ -6,7 +6,7 @@ using UnityEngine;
 public interface IItemable
 {
     string Name { get; }
-    int Amount { get; }
+    int Amount { get; set; }
     Sprite ItemSprite { get; }
 
     void SetSprite();

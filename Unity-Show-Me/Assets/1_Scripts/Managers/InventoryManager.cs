@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -14,7 +16,9 @@ public class InventoryManager : MonoBehaviour
     }
     private static InventoryManager instance;
 
-    private Dictionary<string, int> inventory = new Dictionary<string, int>();
+    public GameObject[] invSlots = new GameObject[3];
+
+    private Dictionary<string, IItemable> inventoryAmounts = new Dictionary<string, IItemable>();
 
     public void Start()
     {
@@ -24,30 +28,32 @@ public class InventoryManager : MonoBehaviour
     public void PickUpItem(GameObject _item)
     {
         IItemable itemable = _item.GetComponent<IItemable>();
-        itemable.PickUp();
+        if (itemable == null) { Debug.LogError("Tried to pick up item missing the IItemable Interface"); }
 
-        if (itemable == null) { Debug.LogError("Tried to pick up item without the IItemable Interface"); }
-        if (inventory.ContainsKey(itemable.Name))
+        AddNewItem(itemable);
+        UpdateItemUI();
+    }
+
+    private void AddNewItem(IItemable _itemable)
+    {
+        if (inventoryAmounts.ContainsKey(_itemable.Name))
         {
-            inventory.TryGetValue(itemable.Name, out int currentValue);
-            inventory[itemable.Name] += itemable.Amount;
+            inventoryAmounts[_itemable.Name].Amount += _itemable.Amount;
         }
         else
         {
-            inventory.Add(itemable.Name, itemable.Amount);
+            inventoryAmounts.Add(_itemable.Name, _itemable);
         }
-
-        inventory.TryGetValue("Scrap", out int scrapAmount);
-        Debug.Log("ScrapAmount: " + scrapAmount);
     }
 
-    public void DropItem(IItemable _item)
+    private void UpdateItemUI()
     {
-        //Do i need this??
-    }
-
-    public void StoreItem()
-    {
-
+        int currentSlot = 0;
+        foreach(IItemable current in inventoryAmounts.Values)
+        {
+            invSlots[currentSlot].GetComponent<Image>().sprite = current.ItemSprite;
+            invSlots[currentSlot].GetComponentInChildren<Text>().text = current.Amount.ToString();
+            currentSlot++;
+        }
     }
 }
