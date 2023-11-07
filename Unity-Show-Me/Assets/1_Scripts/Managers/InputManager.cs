@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    public bool Movement = true;
+
     //Events
     //Key
     public event Action OnSpace;
@@ -19,6 +21,7 @@ public class InputManager : MonoBehaviour
     public event Action OnADown;
     public event Action OnSDown;
     public event Action OnDDown;
+    public event Action OnEDown;
 
     //Mouse
     public event Action<Vector2> OnMouseMovement;
@@ -39,6 +42,13 @@ public class InputManager : MonoBehaviour
     }
 
     public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && OnEDown != null) { OnEDown(); }
+
+        if (Movement) { CheckMovement(); }
+    }
+
+    private void CheckMovement()
     {
         //Check Inputs
         //Key
