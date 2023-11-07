@@ -25,5 +25,5 @@ MonoBehaviour:
   RaftMoveForceOnGunShot: 30
   RaftMoveSpeed: 30
   EnemytargetRange: 100
-  EnemyShootDelay: 0.3
+  EnemyShootDelay: 0.5
   EnemyHealth: 5

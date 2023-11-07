@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour, IShootable, IMovable, IDamagable
     public Rigidbody rb {  get; private set; }
     public int MaxHealth { get; private set; }
     public int Health { get; set; }
+    public GameObject DropItem;
 
     [SerializeField]
     private Bullet bullet;
@@ -66,6 +67,7 @@ public class Enemy : MonoBehaviour, IShootable, IMovable, IDamagable
 
     public void Die()
     {
+        Instantiate(DropItem, this.transform.position, Quaternion.identity);
         attackState.OnAttackShoot -= Shoot;
         attackState.OnAttackUpdate -= LookTowardsPlayer;
         Destroy(this.gameObject);

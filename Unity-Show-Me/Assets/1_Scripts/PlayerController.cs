@@ -8,10 +8,13 @@ public class PlayerController : MonoBehaviour, IDamagable, IMovable
     public GameObject Head;
     public GameObject Body;
     public WeaponManager WeaponManager;
+    public GameObject Shield;
     public int MaxHealth { get; set; }
     public int Health { get; set; }
 
     private Vector3 direction = Vector3.zero;
+    private Collider ShieldCollider;
+    private float playerSpeed;
 
     //References
     private Camera cam;
@@ -29,6 +32,10 @@ public class PlayerController : MonoBehaviour, IDamagable, IMovable
 
         checkGround = GetComponentInChildren<CheckGround>();
         if (checkGround == null) { Debug.LogError("PlayerController Couldn't find CheckGround Script in Children"); }
+
+        ShieldCollider = Shield.GetComponentInChildren<Collider>();
+        if (ShieldCollider == null) { Debug.LogError("No Shield Collider Found In Children"); }
+        ShieldCollider.enabled = false;
     }
 
     void Start()
@@ -39,10 +46,13 @@ public class PlayerController : MonoBehaviour, IDamagable, IMovable
         InputManager.Instance.OnD += MoveRight;
         InputManager.Instance.OnMouseMovement += MouseMovement;
         InputManager.Instance.OnSpaceDown += Jump;
+        InputManager.Instance.OnRightMouseDown += EquipShield;
+        InputManager.Instance.OnRightMouseUp += DeEquipShield;
         WeaponManager.OnShoot += Shoot;
 
         MaxHealth = GameSettings.Instance.PlayerMaxHealth;
         Health = MaxHealth;
+        playerSpeed = GameSettings.Instance.PlayerSpeed;
     }
 
     private void FixedUpdate()
@@ -52,7 +62,7 @@ public class PlayerController : MonoBehaviour, IDamagable, IMovable
 
         //MovePlayer
         direction.Normalize();
-        direction *= GameSettings.Instance.PlayerSpeed;
+        direction *= playerSpeed;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         rb.AddForce(direction);
         direction = Vector3.zero;
@@ -81,6 +91,22 @@ public class PlayerController : MonoBehaviour, IDamagable, IMovable
     private void MoveRight()
     {
         direction += Body.transform.right;
+    }
+
+    private void EquipShield()
+    {
+        InputManager.Instance.Shoot = false;
+        ShieldCollider.enabled = true;
+        Shield.transform.localPosition += new Vector3(1, 0, 0);
+        playerSpeed /= 2;
+    }
+
+    private void DeEquipShield()
+    {
+        InputManager.Instance.Shoot = true;
+        ShieldCollider.enabled = false;
+        Shield.transform.localPosition += new Vector3(-1, 0, 0);
+        playerSpeed = GameSettings.Instance.PlayerSpeed;
     }
 
     private void Jump()

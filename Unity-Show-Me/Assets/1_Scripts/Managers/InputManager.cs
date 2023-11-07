@@ -6,6 +6,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public bool Movement = true;
+    public bool Shoot = true;
 
     //Events
     //Key
@@ -26,6 +27,8 @@ public class InputManager : MonoBehaviour
     //Mouse
     public event Action<Vector2> OnMouseMovement;
     public event Action OnLeftMouseDown;
+    public event Action OnRightMouseDown;
+    public event Action OnRightMouseUp;
 
     public static InputManager Instance
     {
@@ -46,6 +49,7 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && OnEDown != null) { OnEDown(); }
 
         if (Movement) { CheckMovement(); }
+        if (Shoot) { CheckShoot(); }
     }
 
     private void CheckMovement()
@@ -68,6 +72,12 @@ public class InputManager : MonoBehaviour
         ////Mouse
         Vector2 mouseDir = new Vector2(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
         if (OnMouseMovement != null) { OnMouseMovement(mouseDir); }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && OnRightMouseDown != null) { OnRightMouseDown(); }
+        if (Input.GetKeyUp(KeyCode.Mouse1) && OnRightMouseUp != null) { OnRightMouseUp(); }
+    }
+
+    private void CheckShoot()
+    {
         if (Input.GetKeyDown(KeyCode.Mouse0) && OnLeftMouseDown != null) { OnLeftMouseDown(); }
     }
 }

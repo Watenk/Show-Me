@@ -17,6 +17,7 @@ public class InventoryManager : MonoBehaviour
     }
     private static InventoryManager instance;
 
+    public CheckGround playerCheckGround;
     public Sprite UIMask;
     public GameObject BenchScreen;
     public GameObject[] playerInvSlots = new GameObject[3];
@@ -45,19 +46,22 @@ public class InventoryManager : MonoBehaviour
 
     public void OpenBench()
     {
-        TransferItemsFromPlayerToBench();
-        if (!BenchScreen.activeSelf) 
+        if (playerCheckGround.IsOnRaft)
         {
-            BenchScreen.SetActive(true);
-            InputManager.Instance.Movement = false;
-        }
-        else
-        {
-            BenchScreen.SetActive(false);
-            InputManager.Instance.Movement = true;
-        }
+            TransferItemsFromPlayerToBench();
+            if (!BenchScreen.activeSelf)
+            {
+                BenchScreen.SetActive(true);
+                InputManager.Instance.Movement = false;
+            }
+            else
+            {
+                BenchScreen.SetActive(false);
+                InputManager.Instance.Movement = true;
+            }
 
-        UpdateItemUI();
+            UpdateItemUI();
+        }
     }
 
     ////////////////////////////////////////////////////////
