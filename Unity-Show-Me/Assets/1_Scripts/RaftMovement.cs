@@ -8,9 +8,8 @@ public class RaftMovement : MonoBehaviour, IMovable
     public WeaponManager WeaponManager;
     public PlayerController PlayerController;
     public GameObject PlayerHead;
+    public GameObject PlayerBody;
     public Rigidbody rb { get; private set; }
-
-    private Vector3 moveRaftIfPlayerLooksInThisDirection = new Vector3(0f, 180f, 0f);
 
     void Start()
     {
@@ -27,9 +26,8 @@ public class RaftMovement : MonoBehaviour, IMovable
     {
         if (PlayerCheckGround.IsOnRaft)
         {
-            float angle = Vector3.Angle(PlayerHead.transform.eulerAngles, moveRaftIfPlayerLooksInThisDirection);
-
-            if (angle < 30)
+            Debug.Log(PlayerBody.transform.eulerAngles.y);
+            if (PlayerBody.transform.eulerAngles.y > 120 && PlayerBody.transform.eulerAngles.y < 220)
             {
                 PlayerController.Move(this.transform.forward, GameSettings.Instance.RaftMoveForceOnGunShot / 6, ForceMode.Impulse);
                 Move(Vector3.forward, GameSettings.Instance.RaftMoveForceOnGunShot, ForceMode.Impulse);
