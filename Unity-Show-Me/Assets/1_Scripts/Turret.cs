@@ -52,7 +52,7 @@ public class Turret : MonoBehaviour, IShootable, IMovable
         rb.AddForce(direction * forceMultiplier, forceMode);
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {

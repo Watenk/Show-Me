@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -52,12 +51,18 @@ public class InventoryManager : MonoBehaviour
             if (!BenchScreen.activeSelf)
             {
                 BenchScreen.SetActive(true);
+                InputManager.Instance.Shoot = false;
                 InputManager.Instance.Movement = false;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
             else
             {
                 BenchScreen.SetActive(false);
+                InputManager.Instance.Shoot = true;
                 InputManager.Instance.Movement = true;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
 
             UpdateItemUI();
