@@ -24,6 +24,7 @@ MonoBehaviour:
   NormalBulletDamage: 1
   RaftMoveForceOnGunShot: 30
   RaftMoveSpeed: 30
-  EnemytargetRange: 70
+  EnemytargetRange: 100
   EnemyShootDelay: 0.5
   EnemyHealth: 5
+  TurretShootDelay: 1

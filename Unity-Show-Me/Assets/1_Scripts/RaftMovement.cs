@@ -26,7 +26,6 @@ public class RaftMovement : MonoBehaviour, IMovable
     {
         if (PlayerCheckGround.IsOnRaft)
         {
-            Debug.Log(PlayerBody.transform.eulerAngles.y);
             if (PlayerBody.transform.eulerAngles.y > 120 && PlayerBody.transform.eulerAngles.y < 220)
             {
                 PlayerController.Move(this.transform.forward, GameSettings.Instance.RaftMoveForceOnGunShot / 6, ForceMode.Impulse);

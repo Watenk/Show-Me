@@ -46,4 +46,7 @@ public class GameSettings : ScriptableObject
     public float EnemytargetRange;
     public float EnemyShootDelay;
     public int EnemyHealth;
+
+    [Header("Turret Settings")]
+    public float TurretShootDelay;
 }
